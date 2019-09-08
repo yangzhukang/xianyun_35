@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <h2 class="title">
+    <h2 class="air-title">
       <span class="iconfont iconfeiji"></span>
       <i>国内机票</i>
     </h2>
@@ -39,22 +39,27 @@
 
     <!-- 特价机票 -->
     <div class="air-sale">
+
       <el-row type="flex" class="air-sale-pic" justify="space-between">
         <!-- sales 后台返回的数据 -->
-        <el-col :span="6" v-for="(item,index) in sales" :key="index">
+        <el-col 
+        :span="6" 
+        v-for="(item, index) in sales" 
+        :key="index">
           <nuxt-link
             :to="`/air/flights?departCity=${item.departCity}&departCode=${item.departCode}&destCity=${item.destCity}&destCode=${item.destCode}&departDate=${item.departDate}`"
           >
-            <!-- 封面照片 -->
+            <!-- 封面图片 -->
             <img :src="item.cover" />
-            <!-- 航班信息   -->
+            <!-- 航班信息 -->
             <el-row class="layer-bar" type="flex" justify="space-between">
               <span>{{item.departCity}}-{{item.destCity}}</span>
-              <span>{{item.price}}</span>
+              <span>￥{{ item.price }}</span>
             </el-row>
           </nuxt-link>
         </el-col>
       </el-row>
+
     </div>
   </section>
 </template>
@@ -62,24 +67,27 @@
 <script>
 // 导入搜索栏组件
 import SearchForm from "@/components/air/searchForm";
+
 export default {
-  data() {
+  data(){
     return {
-      sales: [] //特价机票的数组
-    };
+      sales: [] // 特价机票的数组
+    }
   },
+
   components: {
-    SearchForm //搜索组件
+    SearchForm // 搜索组件
   },
-  mounted() {
+
+  mounted(){
     this.$axios({
       url: "/airs/sale"
     }).then(res => {
-      //特价机票的列表
-      const { data } = res.data;
+      // 特价机票的列表
+      const {data} = res.data;
 
       this.sales = data;
-    });
+    })
   }
 };
 </script>
@@ -89,15 +97,18 @@ export default {
   border: 1px #ddd solid;
   padding: 20px;
   margin-bottom: 50px;
+
   .air-sale-pic {
     > div {
       width: 225px;
       height: 140px;
       position: relative;
       overflow: hidden;
+
       img {
         width: 100%;
       }
+
       .layer-bar {
         position: absolute;
         bottom: 0;
@@ -110,6 +121,7 @@ export default {
         box-sizing: border-box;
         padding: 0 15px;
         font-size: 14px;
+
         span:last-child {
           font-size: 18px;
         }
@@ -117,36 +129,44 @@ export default {
     }
   }
 }
+
 .air-sale-group {
   margin-top: 20px;
   padding-top: 8px;
   border-right: 1px #eee solid;
+
   &:last-child {
     border-right: none;
   }
+
   .air-sale-row {
     font-size: 12px;
     color: #666;
     margin-bottom: 8px;
+
     .air-sale-price {
       color: orange;
       font-size: 20px;
     }
   }
 }
+
 .container {
   width: 1000px;
   margin: 0 auto;
 }
+
 .air-title {
   margin: 15px 0;
   font-size: 20px;
   font-weight: normal;
   color: orange;
+
   span {
     font-size: 20px;
   }
 }
+
 .statement {
   margin: 15px 0;
   border: 1px #ddd solid;
@@ -154,26 +174,32 @@ export default {
   height: 58px;
   padding: 10px 0;
   box-sizing: border-box;
+
   > div {
     text-align: center;
     line-height: 38px;
     border-right: 1px #ddd solid;
+
     &:last-child {
       border-right: none;
     }
+
     * {
       vertical-align: middle;
     }
+
     i {
       font-size: 30px;
     }
   }
 }
+
 .air-sale-title {
   margin: 15px 0;
   font-size: 20px;
   font-weight: normal;
   color: #409eff;
+
   span {
     font-size: 20px;
   }

@@ -64,6 +64,7 @@ export default {
     methods: {
         // 提交登录
         handleLoginSubmit(){
+
             console.log(this)
 
             // element-ui的验证表单的事件
